@@ -1,24 +1,14 @@
-variable "aws_region" {}
+variable "aws_region" {
+  default = "us-east-1"
+}
 
-variable "vpc_cidr" {
-  default = "10.124.0.0/16"
+variable "aws_access_key_id" {
+  type = string
+  sensitive = true
 }
-variable "public_cidrs" {
-  default = ["10.124.1.0/24", "10.124.3.0/24"]
-}
-variable "private_cidrs" {
-  default = ["10.124.2.0/24", "10.124.4.0/24", "10.124.6.0/24"]
-}
-variable "public_sn_count" {
-  default = 2
-}
-variable "private_sn_count" {
-  default = 3
-}
-variable "max_subnets" {
-  default = 5
-}
-variable "access_ip" {}
-variable "db_subnet_group" {
-  default = true
+
+
+variable "aws_secret_access_key" {
+  type = string
+  sensitive = true
 }
