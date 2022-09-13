@@ -1,5 +1,4 @@
-# --- networking/outputs.tf ---
 
 output "instance_ip" {
-  value = aws_instance.example.public_ip
+  value = aws_instance.myserver.public_ip
 }
