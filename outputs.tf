@@ -1,4 +1,9 @@
+#--root/outputs.tf---
 
-output "instance_ip" {
-  value = aws_instance.myserver.public_ip
-}
+ output "arn" {
+   value = module.identity.group_arn
+ }
+
+ output "name" {
+    value = module.identity.group_name
+ }
