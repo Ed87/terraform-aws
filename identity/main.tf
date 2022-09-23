@@ -20,3 +20,12 @@ resource "aws_iam_user_group_membership" "admins-membership" {
     aws_iam_group.administrators.name
   ]
 }
+
+data "local_file" "pgp_key" {
+  filename = "./public-key-binary.gpg"
+}
+
+resource "aws_iam_access_key" "dev_iam_admin_keys" {
+  user    = aws_iam_user.devadmin.name
+  pgp_key = data.local_file.pgp_key.content_base64
+}
