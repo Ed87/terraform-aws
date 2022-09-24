@@ -8,3 +8,16 @@ output "aws_efs_vpc_id" {
 output "aws_efs_vpc_arn" {
     value = aws_vpc.efs_vpc.arn
 }
+
+output "efs_public_subnets_ids" {
+    value = aws_subnet.efs_public_subnet.*.id
+}
+
+output "efs_public_subnets_arns" {
+    value = aws_subnet.efs_public_subnet.*.arn
+}
+
+
+output "efs_public_subnets_cidrs" {
+    value = aws_subnet.efs_public_subnet.*.cidr_block
+}
