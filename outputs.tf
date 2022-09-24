@@ -27,3 +27,15 @@ output "aws_efs_vpc_id" {
 output "aws_efs_vpc_arn" {
     value = module.networking.aws_efs_vpc_arn
 }
+
+output "efs_public_subnets_ids" {
+    value = module.networking.efs_public_subnets_ids
+}
+
+output "efs_public_subnets_arns" {
+    value = module.networking.efs_public_subnets_arns
+}
+
+output "efs_public_subnets_cidrs" {
+    value = module.networking.efs_public_subnets_cidrs
+}
