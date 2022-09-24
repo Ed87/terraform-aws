@@ -1,5 +1,6 @@
 #--root/outputs.tf---
 
+## Identity outputs
  output "iam_group_arn" {
    value = module.identity.group_arn
  }
@@ -16,10 +17,13 @@
     value = module.identity.user_name
  }
 
-  output "access_key_id" {
-  value = module.identity.access_key_id
+
+## Networking outputs
+
+output "aws_efs_vpc_id" {
+    value = module.networking.aws_efs_vpc_id
 }
 
-output "secret_access_key" {
-  value = module.identity.secret_access_key
+output "aws_efs_vpc_arn" {
+    value = module.networking.aws_efs_vpc_arn
 }
