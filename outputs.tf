@@ -39,3 +39,15 @@ output "efs_public_subnets_arns" {
 output "efs_public_subnets_cidrs" {
     value = module.networking.efs_public_subnets_cidrs
 }
+
+output "efs_private_subnets_ids" {
+    value = module.networking.efs_private_subnets_ids
+}
+
+output "efs_private_subnets_arns" {
+    value = module.networking.efs_private_subnets_arns
+}
+
+output "efs_private_subnets_cidrs" {
+    value = module.networking.efs_private_subnets_cidrs
+}

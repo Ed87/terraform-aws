@@ -15,3 +15,10 @@ variable "public_sn_count" {
 variable "max_subnets" {
     type =number
 }
+
+variable "private_cidrs" {
+    type = list
+}
+variable "private_sn_count" {
+    type = number
+}
