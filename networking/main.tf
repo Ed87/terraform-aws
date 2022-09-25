@@ -34,3 +34,17 @@ resource "aws_subnet" "efs_public_subnet"{
         Name = "efs-public-subnet"
     }
 }
+
+
+#add private subnets to vpc 
+resource "aws_subnet" "efs_private_subnet"{
+    count = var.private_sn_count                 
+    vpc_id = aws_vpc.efs_vpc.id                 
+    cidr_block = var.private_cidrs[count.index]
+    # false for private subnets  
+    map_public_ip_on_launch = false            
+    availability_zone = random_shuffle.az_list.result[count.index]
+     tags  = {
+        Name = "efs-private-subnet"
+    }
+}

@@ -21,3 +21,16 @@ output "efs_public_subnets_arns" {
 output "efs_public_subnets_cidrs" {
     value = aws_subnet.efs_public_subnet.*.cidr_block
 }
+
+output "efs_private_subnets_ids" {
+    value = aws_subnet.efs_private_subnet.*.id
+}
+
+output "efs_private_subnets_arns" {
+    value = aws_subnet.efs_private_subnet.*.arn
+}
+
+
+output "efs_private_subnets_cidrs" {
+    value = aws_subnet.efs_private_subnet.*.cidr_block
+}
