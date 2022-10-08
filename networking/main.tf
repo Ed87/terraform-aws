@@ -48,3 +48,10 @@ resource "aws_subnet" "efs_private_subnet"{
         Name = "efs-private-subnet"
     }
 }
+
+resource "aws_internet_gateway" "efs_internet_gateway" {
+    vpc_id =  aws_vpc.efs_vpc.id
+    tags = {
+        Name = "efs_igw"
+    }
+}

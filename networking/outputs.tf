@@ -30,6 +30,9 @@ output "efs_private_subnets_arns" {
     value = aws_subnet.efs_private_subnet.*.arn
 }
 
+output "efs_internet_gateway_arn" {
+    value = aws_internet_gateway.efs_internet_gateway.arn
+}
 
 output "efs_private_subnets_cidrs" {
     value = aws_subnet.efs_private_subnet.*.cidr_block
