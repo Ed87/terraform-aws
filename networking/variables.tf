@@ -22,3 +22,8 @@ variable "private_cidrs" {
 variable "private_sn_count" {
     type = number
 }
+
+variable "destination_cidr_block" {
+    type = string
+}
+ 

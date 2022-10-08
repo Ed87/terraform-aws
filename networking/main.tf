@@ -44,6 +44,13 @@ resource "aws_route_table" "efs_public_rt" {
     }
 }
 
+#add a route to the public route table
+resource "aws_route" "default_public_route" {
+    route_table_id =  aws_route_table.efs_public_rt.id
+    gateway_id =  aws_internet_gateway.efs_internet_gateway.id
+    destination_cidr_block = var.destination_cidr_block
+}
+
 #add private subnets to vpc 
 resource "aws_subnet" "efs_private_subnet"{
     count = var.private_sn_count                 
