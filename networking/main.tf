@@ -36,6 +36,14 @@ resource "aws_subnet" "efs_public_subnet"{
 }
 
 
+#add public route table
+resource "aws_route_table" "efs_public_rt" {
+    vpc_id =  aws_vpc.efs_vpc.id
+    tags = {
+        Name = "efs_public_rt"
+    }
+}
+
 #add private subnets to vpc 
 resource "aws_subnet" "efs_private_subnet"{
     count = var.private_sn_count                 

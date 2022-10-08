@@ -22,6 +22,10 @@ output "efs_public_subnets_cidrs" {
     value = aws_subnet.efs_public_subnet.*.cidr_block
 }
 
+output "efs_private_subnets_cidrs" {
+    value = aws_subnet.efs_private_subnet.*.cidr_block
+}
+
 output "efs_private_subnets_ids" {
     value = aws_subnet.efs_private_subnet.*.id
 }
@@ -30,10 +34,11 @@ output "efs_private_subnets_arns" {
     value = aws_subnet.efs_private_subnet.*.arn
 }
 
-output "efs_internet_gateway_arn" {
-    value = aws_internet_gateway.efs_internet_gateway.arn
+
+output "efs_public_rt_arn" {
+    value = aws_route_table.efs_public_rt.arn
 }
 
-output "efs_private_subnets_cidrs" {
-    value = aws_subnet.efs_private_subnet.*.cidr_block
+output "efs_internet_gateway_arn" {
+    value = aws_internet_gateway.efs_internet_gateway.arn
 }
