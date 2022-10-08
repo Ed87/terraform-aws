@@ -51,3 +51,7 @@ output "efs_private_subnets_arns" {
 output "efs_private_subnets_cidrs" {
     value = module.networking.efs_private_subnets_cidrs
 }
+
+output "efs_internet_gateway_arn" {
+    value = module.networking.efs_internet_gateway_arn
+}
