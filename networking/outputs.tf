@@ -34,7 +34,6 @@ output "efs_private_subnets_arns" {
     value = aws_subnet.efs_private_subnet.*.arn
 }
 
-
 output "efs_public_rt_arn" {
     value = aws_route_table.efs_public_rt.arn
 }
@@ -45,4 +44,8 @@ output "efs_internet_gateway_arn" {
 
 output "efs_public_route_table_association_id" {
     value = aws_route_table_association.efs_public_assoc.*.id
+}
+
+output "efs_private_rt_arn" {
+    value = aws_route_table.efs_private_rt.arn
 }

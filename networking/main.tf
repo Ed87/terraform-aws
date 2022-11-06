@@ -87,5 +87,11 @@ resource "aws_internet_gateway" "efs_internet_gateway" {
     }
 }
 
-
+# add private route table
+resource "aws_route_table" "efs_private_rt" {
+  vpc_id = aws_vpc.efs_vpc.id
+    tags = {
+        Name = "efs_private_rt"
+    }
+}
 
