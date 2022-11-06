@@ -73,6 +73,13 @@ resource "aws_default_route_table" "efs_private_rt" {
 }
 
 
+# associate public subnet with public route table 
+ resource "aws_route_table_association" "efs_public_assoc" {
+    count = var.public_sn_count
+    subnet_id =  aws_subnet.efs_public_subnet.*.id[count.index]
+    route_table_id =  aws_route_table.efs_public_rt.id
+}
+ 
 resource "aws_internet_gateway" "efs_internet_gateway" {
     vpc_id =  aws_vpc.efs_vpc.id
     tags = {

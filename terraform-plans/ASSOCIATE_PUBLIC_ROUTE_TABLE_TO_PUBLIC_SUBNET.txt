@@ -1,0 +1,42 @@
+module.identity.data.local_file.pgp_key: Reading...
+module.identity.data.local_file.pgp_key: Read complete after 0s [id=bf94b64c8e07c838255c740fe44d09de9b0fe8bf]
+module.networking.data.aws_availability_zones.available: Reading...
+module.identity.aws_iam_group.administrators: Refreshing state... [id=administrators]
+module.identity.aws_iam_user.devadmin: Refreshing state... [id=dev-admin]
+module.networking.aws_vpc.efs_vpc: Refreshing state... [id=vpc-06a2930917c507ce2]
+module.networking.data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+module.networking.random_shuffle.az_list: Refreshing state... [id=-]
+module.identity.aws_iam_group_policy_attachment.administrators-attach: Refreshing state... [id=administrators-20220922112213679500000001]
+module.identity.aws_iam_user_group_membership.admins-membership: Refreshing state... [id=terraform-20220922140845646000000001]
+module.identity.aws_iam_access_key.dev_iam_admin_keys: Refreshing state... [id=AKIAX3HPOH57GTZOGLER]
+module.networking.aws_internet_gateway.efs_internet_gateway: Refreshing state... [id=igw-0eb56b8ceb2b8e53f]
+module.networking.aws_route_table.efs_public_rt: Refreshing state... [id=rtb-0f7262a971bccbda9]
+module.networking.aws_subnet.efs_private_subnet[0]: Refreshing state... [id=subnet-070bb79ad335f7f42]
+module.networking.aws_default_route_table.efs_private_rt: Refreshing state... [id=rtb-00eb9f35ab0e73339]
+module.networking.aws_subnet.efs_public_subnet[0]: Refreshing state... [id=subnet-05a15868d275e472f]
+module.networking.aws_route.default_public_route: Refreshing state... [id=r-rtb-0f7262a971bccbda91080289494]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.networking.aws_route_table_association.efs_public_assoc[0] will be created
+  + resource "aws_route_table_association" "efs_public_assoc" {
+      + id             = (known after apply)
+      + route_table_id = "rtb-0f7262a971bccbda9"
+      + subnet_id      = "subnet-05a15868d275e472f"
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + efs_public_route_table_association_id = [
+      + (known after apply),
+    ]
+
+─────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.
