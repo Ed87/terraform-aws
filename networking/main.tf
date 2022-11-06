@@ -65,10 +65,10 @@ resource "aws_subnet" "efs_private_subnet"{
 }
 
 # terraform adopt aws default route table
-resource "aws_default_route_table" "efs_private_rt" {
+resource "aws_default_route_table" "default_vpc_main_route_table" {
     default_route_table_id =  aws_vpc.efs_vpc.default_route_table_id
     tags = {
-        Name = "efs_private_main_rt_adoption"
+        Name = "default_vpc_main_route_table_adoption"
     }
 }
 
@@ -86,3 +86,6 @@ resource "aws_internet_gateway" "efs_internet_gateway" {
         Name = "efs_igw"
     }
 }
+
+
+
