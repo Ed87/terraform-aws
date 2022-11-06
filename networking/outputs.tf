@@ -42,3 +42,7 @@ output "efs_public_rt_arn" {
 output "efs_internet_gateway_arn" {
     value = aws_internet_gateway.efs_internet_gateway.arn
 }
+
+output "efs_public_route_table_association_id" {
+    value = aws_route_table_association.efs_public_assoc.*.id
+}

@@ -59,3 +59,7 @@ output "efs_internet_gateway_arn" {
 output "efs_public_rt_arn" {
     value =module.networking.efs_public_rt_arn
 }
+
+output "efs_public_route_table_association_id" {
+    value = module.networking.efs_public_route_table_association_id
+}
