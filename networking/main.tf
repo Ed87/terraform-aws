@@ -95,3 +95,14 @@ resource "aws_route_table" "efs_private_rt" {
     }
 }
 
+resource "aws_nat_gateway" "efs_natgw" {
+  count         = var.private_sn_count
+  allocation_id = aws_eip.efs_natgw_eip.*.id[count.index]
+  subnet_id     = aws_subnet.efs_public_subnet.*.id[count.index]
+  depends_on    = [aws_internet_gateway.efs_internet_gateway]
+}
+ 
+resource "aws_eip" "efs_natgw_eip" {
+  count = var.private_sn_count
+  vpc = true
+}
