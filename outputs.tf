@@ -80,3 +80,7 @@ output "efs_natgw_eip_public-ip" {
 output "efs_natgw_eip_allocation-id" {
     value =  module.networking.efs_natgw_eip_allocation-id
 }
+
+output "efs_natgw_subnet-id" {
+    value = module.networking.efs_natgw_subnet-id
+}

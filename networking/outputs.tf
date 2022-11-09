@@ -61,3 +61,7 @@ output "efs_natgw_eip_public-ip" {
 output "efs_natgw_eip_allocation-id" {
     value = aws_eip.efs_natgw_eip.*.allocation_id
 }
+
+output "efs_natgw_subnet-id" {
+    value = aws_nat_gateway.efs_natgw.*.subnet_id
+}
