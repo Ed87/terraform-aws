@@ -67,3 +67,16 @@ output "efs_public_route_table_association_id" {
 output "efs_private_rt_arn" {
     value = module.networking.efs_private_rt_arn
 }
+
+#NATGW OUTPUTS
+output "efs_natgw_eip_public-dns" {
+    value = module.networking.efs_natgw_eip_public-dns
+}
+
+output "efs_natgw_eip_public-ip" {
+    value = module.networking.efs_natgw_eip_public-ip
+}
+
+output "efs_natgw_eip_allocation-id" {
+    value =  module.networking.efs_natgw_eip_allocation-id
+}
