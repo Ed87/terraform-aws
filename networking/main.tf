@@ -44,7 +44,7 @@ resource "aws_route_table" "efs_public_rt" {
     }
 }
 
-#add a route to the public route table
+#add IGW route to the public route table
 resource "aws_route" "default_public_route" {
     route_table_id =  aws_route_table.efs_public_rt.id
     gateway_id =  aws_internet_gateway.efs_internet_gateway.id
@@ -58,6 +58,15 @@ resource "aws_route_table" "efs_private_rt" {
         Name = "efs_private_rt"
     }
 }
+
+#add NATGW route to the private route table
+resource "aws_route" "default_private_route" {
+    count = var.private_sn_count
+    route_table_id =  aws_route_table.efs_private_rt.id
+    nat_gateway_id =  aws_nat_gateway.efs_natgw.*.id[count.index]
+    destination_cidr_block = var.destination_cidr_block
+}
+
 
 #add private subnets to vpc 
 resource "aws_subnet" "efs_private_subnet"{
