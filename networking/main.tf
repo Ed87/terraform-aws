@@ -51,6 +51,14 @@ resource "aws_route" "default_public_route" {
     destination_cidr_block = var.destination_cidr_block
 }
 
+# add private route table
+resource "aws_route_table" "efs_private_rt" {
+  vpc_id = aws_vpc.efs_vpc.id
+    tags = {
+        Name = "efs_private_rt"
+    }
+}
+
 #add private subnets to vpc 
 resource "aws_subnet" "efs_private_subnet"{
     count = var.private_sn_count                 
@@ -80,6 +88,13 @@ resource "aws_default_route_table" "default_vpc_main_route_table" {
     route_table_id =  aws_route_table.efs_public_rt.id
 }
  
+# associate private subnet with private route table 
+ resource "aws_route_table_association" "efs_private_assoc" {
+    count = var.private_sn_count
+    subnet_id =  aws_subnet.efs_private_subnet.*.id[count.index]
+    route_table_id =  aws_route_table.efs_private_rt.id
+}
+
 resource "aws_internet_gateway" "efs_internet_gateway" {
     vpc_id =  aws_vpc.efs_vpc.id
     tags = {
@@ -87,13 +102,6 @@ resource "aws_internet_gateway" "efs_internet_gateway" {
     }
 }
 
-# add private route table
-resource "aws_route_table" "efs_private_rt" {
-  vpc_id = aws_vpc.efs_vpc.id
-    tags = {
-        Name = "efs_private_rt"
-    }
-}
 
 resource "aws_nat_gateway" "efs_natgw" {
   count         = var.private_sn_count
@@ -106,3 +114,4 @@ resource "aws_eip" "efs_natgw_eip" {
   count = var.private_sn_count
   vpc = true
 }
+
