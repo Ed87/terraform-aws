@@ -124,3 +124,36 @@ resource "aws_eip" "efs_natgw_eip" {
   vpc = true
 }
 
+
+# security group for ALB
+resource "aws_security_group" "efs_sg_alb" {
+  name   = "efs-alb-sg"
+  vpc_id = aws_vpc.efs_vpc.id
+ 
+  ingress {
+   protocol         = "tcp"
+   from_port        = 80
+   to_port          = 80
+   cidr_blocks      = ["0.0.0.0/0"]
+   ipv6_cidr_blocks = ["::/0"]
+  }
+ 
+  ingress {
+   protocol         = "tcp"
+   from_port        = 443
+   to_port          = 443
+   cidr_blocks      = ["0.0.0.0/0"]
+   ipv6_cidr_blocks = ["::/0"]
+  }
+ 
+  egress {
+   protocol         = "-1"
+   from_port        = 0
+   to_port          = 0
+   cidr_blocks      = ["0.0.0.0/0"]
+   ipv6_cidr_blocks = ["::/0"]
+  }
+  tags = {
+    Name = "alb_sg"
+  }
+}
