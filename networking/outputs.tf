@@ -65,3 +65,7 @@ output "efs_natgw_eip_allocation-id" {
 output "efs_natgw_subnet-id" {
     value = aws_nat_gateway.efs_natgw.*.subnet_id
 }
+
+output "efs_alb_security-group_arn" {
+    value = aws_security_group.efs_sg_alb.arn
+}
