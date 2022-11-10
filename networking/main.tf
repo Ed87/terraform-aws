@@ -129,7 +129,7 @@ resource "aws_eip" "efs_natgw_eip" {
 resource "aws_security_group" "efs_sg_alb" {
   name   = "efs-alb-sg"
   vpc_id = aws_vpc.efs_vpc.id
- 
+  description = "Security group for efs alb"
   ingress {
    protocol         = "tcp"
    from_port        = 80
@@ -154,6 +154,31 @@ resource "aws_security_group" "efs_sg_alb" {
    ipv6_cidr_blocks = ["::/0"]
   }
   tags = {
-    Name = "alb_sg"
+    Name = "efs-alb-sg"
+  }
+}
+
+# security group for ecs task
+resource "aws_security_group" "efs_sg_ecs_task" {
+  name   = "efs-ecs-task-sg"
+  vpc_id = aws_vpc.efs_vpc.id
+  description = "Security group for efs ecs task"
+  ingress {
+   protocol         = "tcp"
+   from_port        = var.container_port
+   to_port          = var.container_port
+   cidr_blocks      = ["0.0.0.0/0"]
+   ipv6_cidr_blocks = ["::/0"]
+  }
+ 
+  egress {
+   protocol         = "-1"
+   from_port        = 0
+   to_port          = 0
+   cidr_blocks      = ["0.0.0.0/0"]
+   ipv6_cidr_blocks = ["::/0"]
+  }
+  tags = {
+    Name = "efs-ecs-task-sg"
   }
 }

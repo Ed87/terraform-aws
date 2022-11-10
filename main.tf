@@ -12,6 +12,7 @@ module "networking" {
   max_subnets      = 20
   public_sn_count = 1
   private_sn_count = 1
+  container_port = 80
   destination_cidr_block = "0.0.0.0/0"
   #even numbers for public subnets
   public_cidrs     = [for i in range(2, 255, 2) : cidrsubnet(local.vpc_cidr, 8, i)]

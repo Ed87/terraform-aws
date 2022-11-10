@@ -27,3 +27,6 @@ variable "destination_cidr_block" {
     type = string
 }
  
+variable "container_port" {
+    type = number
+}
