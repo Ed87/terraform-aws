@@ -69,3 +69,4 @@ output "efs_natgw_subnet-id" {
 output "efs_alb_security-group_arn" {
     value = aws_security_group.efs_sg_alb.arn
 }
+
