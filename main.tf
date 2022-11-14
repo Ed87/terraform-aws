@@ -23,3 +23,15 @@ module "networking" {
   # public_cidrs   = "${cidrsubnet(local.vpc_cidr, 8, 2)}"
   # private_cidrs    = "${cidrsubnet(local.vpc_cidr, 8, 1)}"
 }
+
+module "ecr" {
+  source = "./ecr"
+  name   = "efs-aws-ecr"
+  tagStatus = "any"
+  countType   = "imageCountMoreThan"
+  countNumber = 3
+  description = "keep last 3 images"
+  rulePriority   = 1
+  type = "expire"
+  # image_tag_mutability = "MUTABLE"
+}

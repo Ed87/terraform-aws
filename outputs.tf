@@ -88,3 +88,12 @@ output "efs_natgw_subnet-id" {
 output "efs_alb_security-group_arn" {
     value = module.networking.efs_alb_security-group_arn
 }
+
+#ECR Outputs
+output "aws_efs_ecr_repository_url" {
+ value = module.ecr.aws_efs_ecr_repository_url
+ }
+
+ output "aws_efs_ecr_repository_arn" {
+ value = module.ecr.aws_efs_ecr_repository_arn
+ }
