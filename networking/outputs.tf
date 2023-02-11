@@ -47,7 +47,7 @@ output "efs_public_route_table_association_id" {
 }
 
 output "efs_private_rt_arn" {
-    value = aws_route_table.efs_private_rt.arn
+    value = aws_route_table.efs_private_rt.*.arn
 }
 
 output "efs_natgw_eip_public-dns" {
