@@ -50,23 +50,6 @@ output "orion_private_rt_arn" {
     value = module.networking.orion_private_rt_arn
 }
 
-#NATGW OUTPUTS
-output "orion_natgw_eip_public-dns" {
-    value = module.networking.orion_natgw_eip_public-dns
-}
-
-output "orion_natgw_eip_public-ip" {
-    value = module.networking.orion_natgw_eip_public-ip
-}
-
-output "orion_natgw_eip_allocation-id" {
-    value =  module.networking.orion_natgw_eip_allocation-id
-}
-
-output "orion_natgw_subnet-id" {
-    value = module.networking.orion_natgw_subnet-id
-}
-
 output "orion_alb_security-group_arn" {
     value = module.networking.orion_alb_security-group_arn
 }

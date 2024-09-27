@@ -1,0 +1,59 @@
+module.networking.data.aws_availability_zones.available: Reading...
+module.networking.aws_vpc.orion-vpc: Refreshing state... [id=vpc-019f8c27f3d1188c3]
+module.networking.data.aws_availability_zones.available: Read complete after 0s [id=eu-north-1]
+module.networking.random_shuffle.az_list: Refreshing state... [id=-]
+module.networking.aws_internet_gateway.orion-internet-gateway: Refreshing state... [id=igw-072da92abfb12ed27]
+module.networking.aws_route_table.orion-private-rt[0]: Refreshing state... [id=rtb-0a5ab632681b7298e]
+module.networking.aws_route_table.orion-private-rt[1]: Refreshing state... [id=rtb-0a86f02f7befdfffe]
+module.networking.aws_route_table.orion-public-rt: Refreshing state... [id=rtb-0c0c9ab218b666cf2]
+module.networking.aws_security_group.orion-sg-alb: Refreshing state... [id=sg-0b7f78cb62c57ea50]
+module.networking.aws_subnet.orion-private-subnet[1]: Refreshing state... [id=subnet-09711a5726e744bd9]
+module.networking.aws_subnet.orion-public-subnet[1]: Refreshing state... [id=subnet-0963f49fb1167f119]
+module.networking.aws_subnet.orion-public-subnet[0]: Refreshing state... [id=subnet-02944aa82bdb31220]
+module.networking.aws_subnet.orion-private-subnet[0]: Refreshing state... [id=subnet-00c2cc2bcf1964277]
+module.networking.aws_vpc_endpoint.orion-s3[1]: Refreshing state... [id=vpce-0b84107e4286bb0db]
+module.networking.aws_vpc_endpoint.orion-s3[0]: Refreshing state... [id=vpce-0bc600dca2e81f734]
+module.networking.aws_route_table_association.orion-private-assoc[1]: Refreshing state... [id=rtbassoc-02756ee67851202b7]
+module.networking.aws_route_table_association.orion-private-assoc[0]: Refreshing state... [id=rtbassoc-0783bdf146542906c]
+module.networking.aws_route_table_association.orion-public-assoc[0]: Refreshing state... [id=rtbassoc-08700b479fa05f8b8]
+module.networking.aws_route_table_association.orion-public-assoc[1]: Refreshing state... [id=rtbassoc-09067dcb5b51133c7]
+module.networking.aws_route.default-public-route: Refreshing state... [id=r-rtb-0c0c9ab218b666cf21080289494]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.networking.aws_route.default-private-route[0] will be created
+  + resource "aws_route" "default-private-route" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + route_table_id         = "rtb-0a5ab632681b7298e"
+      + state                  = (known after apply)
+      + vpc_endpoint_id        = "vpce-0bc600dca2e81f734"
+    }
+
+  # module.networking.aws_route.default-private-route[1] will be created
+  + resource "aws_route" "default-private-route" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + route_table_id         = "rtb-0a86f02f7befdfffe"
+      + state                  = (known after apply)
+      + vpc_endpoint_id        = "vpce-0b84107e4286bb0db"
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+─────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.

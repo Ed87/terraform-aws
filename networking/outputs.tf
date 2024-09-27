@@ -50,22 +50,6 @@ output "orion_private_rt_arn" {
     value = aws_route_table.orion-private-rt.*.arn
 }
 
-output "orion_natgw_eip_public-dns" {
-    value = aws_eip.orion-natgw-eip.*.public_dns
-}
-
-output "orion_natgw_eip_public-ip" {
-    value = aws_eip.orion-natgw-eip.*.public_ip
-}
-
-output "orion_natgw_eip_allocation-id" {
-    value = aws_eip.orion-natgw-eip.*.allocation_id
-}
-
-output "orion_natgw_subnet-id" {
-    value = aws_nat_gateway.orion-natgw.*.subnet_id
-}
-
 output "orion_alb_security-group_arn" {
     value = aws_security_group.orion-sg-alb.arn
 }

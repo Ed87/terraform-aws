@@ -26,3 +26,8 @@ variable "private_sn_count" {
 variable "destination_cidr_block" {
     type = string
 }
+
+#required for aws_vpc_endpoint
+variable "aws_region" {
+    type = string
+}

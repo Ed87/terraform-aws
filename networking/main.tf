@@ -65,13 +65,15 @@ resource "aws_route_table" "orion-private-rt" {
     }
 }
 
-#add NATGW route to the private route table
-resource "aws_route" "default-private-route" {
-    count = var.private_sn_count
-    route_table_id =  aws_route_table.orion-private-rt.*.id[count.index]
-    nat_gateway_id =  aws_nat_gateway.orion-natgw.*.id[count.index]
-    destination_cidr_block = var.destination_cidr_block
-}
+# resource "aws_route" "default-private-route" {
+#     count = var.private_sn_count
+#     route_table_id =  aws_route_table.orion-private-rt.*.id[count.index]
+#     destination_cidr_block = var.destination_cidr_block
+#     gateway_id             = "local"
+#     # vpc_endpoint_id = aws_vpc_endpoint.orion-s3[count.index].id
+
+#     depends_on = [aws_vpc_endpoint.orion-s3]
+# }
 
 
 #add private subnets to vpc
@@ -119,27 +121,6 @@ resource "aws_internet_gateway" "orion-internet-gateway" {
 }
 
 
-resource "aws_nat_gateway" "orion-natgw" {
-  count         = var.private_sn_count
-  allocation_id = aws_eip.orion-natgw-eip.*.id[count.index]
-  subnet_id     = aws_subnet.orion-public-subnet.*.id[count.index]
-  depends_on    = [aws_internet_gateway.orion-internet-gateway]
-   tags = {
-        Name = "orion-ngw"
-        CreatedBy = local.createdBy
-    }
-}
-
-resource "aws_eip" "orion-natgw-eip" {
-  count = var.private_sn_count
-  vpc = true
-  tags = {
-        Name = "orion-eip"
-        CreatedBy = local.createdBy
-    }
-}
-
-
 # security group for ALB
 resource "aws_security_group" "orion-sg-alb" {
   name   = "orion-alb-sg"
@@ -170,6 +151,30 @@ resource "aws_security_group" "orion-sg-alb" {
   }
   tags = {
     Name = "orion-alb-sg"
+    CreatedBy = local.createdBy
+  }
+}
+
+#aws_vpc_endpoint for S3
+ resource "aws_vpc_endpoint" "orion-s3" {
+  vpc_id = aws_vpc.orion-vpc.id
+  count = 2
+  service_name    = "com.amazonaws.${var.aws_region}.s3"
+  route_table_ids = ["${element(aws_route_table.orion-private-rt.*.id,count.index)}"]
+  policy = <<POLICY
+  {
+  "Statement": [
+    {
+    "Action": "*",
+    "Effect": "Allow",
+    "Resource": "*",
+    "Principal": "*"
+    }
+  ]
+  }
+  POLICY
+    tags = {
+    Name = "orion-vpce"
     CreatedBy = local.createdBy
   }
 }
