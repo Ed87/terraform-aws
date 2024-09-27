@@ -1,5 +1,9 @@
 #--- networking/main.tf ---
 
+locals {
+  all_vpc_route_table_ids = flatten([aws_route_table.orion-private-rt[*].id, aws_route_table.orion-public-rt[*].id])
+}
+
 # create VPC
  resource "aws_vpc" "orion-vpc" {
     cidr_block = var.vpc_cidr
@@ -65,17 +69,6 @@ resource "aws_route_table" "orion-private-rt" {
     }
 }
 
-# resource "aws_route" "default-private-route" {
-#     count = var.private_sn_count
-#     route_table_id =  aws_route_table.orion-private-rt.*.id[count.index]
-#     destination_cidr_block = var.destination_cidr_block
-#     gateway_id             = "local"
-#     # vpc_endpoint_id = aws_vpc_endpoint.orion-s3[count.index].id
-
-#     depends_on = [aws_vpc_endpoint.orion-s3]
-# }
-
-
 #add private subnets to vpc
 resource "aws_subnet" "orion-private-subnet"{
     count = var.private_sn_count
@@ -90,25 +83,18 @@ resource "aws_subnet" "orion-private-subnet"{
     }
 }
 
-    # terraform adopt aws default route table
-# resource "aws_default_route_table" "default-vpc-main-route-table" {
-#     default_route_table_id =  aws_vpc.orion-vpc.default_route_table_id
-#     tags = {
-#         Name = "default_vpc_main_route_table_adoption"
-#     }
-# }
 
 # associate public subnet with public route table
  resource "aws_route_table_association" "orion-public-assoc" {
-    count = var.public_sn_count
-    subnet_id =  aws_subnet.orion-public-subnet.*.id[count.index]
+    count          = var.public_sn_count
+    subnet_id      =  aws_subnet.orion-public-subnet.*.id[count.index]
     route_table_id =  aws_route_table.orion-public-rt.id
 }
 
 # associate private subnet with private route table
  resource "aws_route_table_association" "orion-private-assoc" {
-    count = var.private_sn_count
-    subnet_id =  aws_subnet.orion-private-subnet.*.id[count.index]
+    count          = var.private_sn_count
+    subnet_id      =  aws_subnet.orion-private-subnet.*.id[count.index]
     route_table_id =  aws_route_table.orion-private-rt.*.id[count.index]
 }
 
@@ -157,10 +143,9 @@ resource "aws_security_group" "orion-sg-alb" {
 
 #aws_vpc_endpoint for S3
  resource "aws_vpc_endpoint" "orion-s3" {
-  vpc_id = aws_vpc.orion-vpc.id
-  count = 2
+  vpc_id          = aws_vpc.orion-vpc.id
   service_name    = "com.amazonaws.${var.aws_region}.s3"
-  route_table_ids = ["${element(aws_route_table.orion-private-rt.*.id,count.index)}"]
+  route_table_ids   = local.all_vpc_route_table_ids
   policy = <<POLICY
   {
   "Statement": [

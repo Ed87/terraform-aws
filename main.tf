@@ -4,8 +4,8 @@ module "networking" {
   source   = "./networking"
   vpc_cidr = local.vpc_cidr
   max_subnets      = 20
-  public_sn_count = 2
-  private_sn_count = 2
+  public_sn_count = 3
+  private_sn_count = 3
   destination_cidr_block = "0.0.0.0/0"
   aws_region = local.aws_region
   #even numbers 4 public subnets
