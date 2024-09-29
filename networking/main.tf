@@ -23,6 +23,7 @@ data "aws_region" "current" {}
 
 resource "random_shuffle" "az_list" {
   input        = data.aws_availability_zones.available.names
+  result_count = var.max_subnets
 }
 
 
@@ -36,7 +37,7 @@ resource "aws_subnet" "orion-public-subnet" {
   availability_zone       = random_shuffle.az_list.result[count.index]
 
   tags = merge(var.common_tags, {
-    Name = "${var.naming_prefix}-public-${count.index + 1}"
+    Name = "${var.naming_prefix}-public-${random_shuffle.az_list.result[count.index]}"
   })
 }
 
@@ -77,7 +78,7 @@ resource "aws_subnet" "orion-private-subnet" {
   availability_zone       = random_shuffle.az_list.result[count.index]
 
   tags = merge(var.common_tags, {
-    Name = "${var.naming_prefix}-private-${count.index + 1}"
+    Name = "${var.naming_prefix}-private-${random_shuffle.az_list.result[count.index]}"
   })
 }
 
