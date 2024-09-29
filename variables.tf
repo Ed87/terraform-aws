@@ -7,7 +7,7 @@ variable "aws_region" {
 variable "company" {
   type        = string
   description = "Company name for resource tagging"
-  default     = "taat"
+  default     = "orion"
 }
 
 variable "environment" {

@@ -7,7 +7,7 @@ resource "aws_vpc" "orion-vpc" {
   enable_dns_support   = true
 
   tags = merge(var.common_tags, {
-    name = "${var.naming_prefix}-${local.vpc_name}"
+    Name = "${var.naming_prefix}-${local.vpc_name}"
   })
   # create new VPC b4 destroying the old one
   # IGW gets updated to new VPC b4 old VPC is destroyed
@@ -16,13 +16,13 @@ resource "aws_vpc" "orion-vpc" {
   }
 }
 
-data "aws_availability_zones" "available" {}
+data "aws_availability_zones" "available" {
+}
 
 data "aws_region" "current" {}
 
 resource "random_shuffle" "az_list" {
   input        = data.aws_availability_zones.available.names
-  result_count = var.max_subnets
 }
 
 
@@ -36,7 +36,7 @@ resource "aws_subnet" "orion-public-subnet" {
   availability_zone       = random_shuffle.az_list.result[count.index]
 
   tags = merge(var.common_tags, {
-    name = "${var.naming_prefix}-pubsubnet-${count.index + 1}"
+    Name = "${var.naming_prefix}-public-${count.index + 1}"
   })
 }
 
@@ -46,7 +46,7 @@ resource "aws_route_table" "orion-public-rt" {
   vpc_id = aws_vpc.orion-vpc.id
 
   tags = merge(var.common_tags, {
-    name = "${var.naming_prefix}-pubroutetable"
+    Name = "${var.naming_prefix}-public"
   })
 }
 
@@ -63,7 +63,7 @@ resource "aws_route_table" "orion-private-rt" {
   count  = var.private_sn_count
 
   tags = merge(var.common_tags, {
-    name = "${var.naming_prefix}-pvtroutetable-${count.index + 1}"
+    Name = "${var.naming_prefix}-private-${count.index + 1}"
   })
 }
 
@@ -77,7 +77,7 @@ resource "aws_subnet" "orion-private-subnet" {
   availability_zone       = random_shuffle.az_list.result[count.index]
 
   tags = merge(var.common_tags, {
-    name = "${var.naming_prefix}-pvtsubnet-${count.index + 1}"
+    Name = "${var.naming_prefix}-private-${count.index + 1}"
   })
 }
 
@@ -101,7 +101,7 @@ resource "aws_internet_gateway" "orion-internet-gateway" {
   vpc_id = aws_vpc.orion-vpc.id
 
   tags = merge(var.common_tags, {
-    name = "${var.naming_prefix}-igw"
+    Name = "${var.naming_prefix}-igw"
   })
 }
 
@@ -136,7 +136,7 @@ resource "aws_security_group" "orion-sg-alb" {
   }
 
   tags = merge(var.common_tags, {
-    name = "${var.naming_prefix}-alb-sg"
+    Name = "${var.naming_prefix}-alb-sg"
   })
 }
 
@@ -149,6 +149,6 @@ resource "aws_vpc_endpoint" "orion-s3" {
   route_table_ids = local.all_vpc_route_table_ids
 
   tags = merge(var.common_tags, {
-    name = "${var.naming_prefix}-vpce"
+    Name = "${var.naming_prefix}-vpce"
   })
 }
