@@ -18,6 +18,8 @@ resource "aws_vpc" "orion-vpc" {
 
 data "aws_availability_zones" "available" {}
 
+data "aws_region" "current" {}
+
 resource "random_shuffle" "az_list" {
   input        = data.aws_availability_zones.available.names
   result_count = var.max_subnets
@@ -141,7 +143,7 @@ resource "aws_security_group" "orion-sg-alb" {
 #aws_vpc_endpoint for S3
 resource "aws_vpc_endpoint" "orion-s3" {
   vpc_id          = aws_vpc.orion-vpc.id
-  service_name    = "com.amazonaws.${var.aws_region}.s3"
+  service_name    = join(".", ["com.amazonaws", data.aws_region.current.name, "s3"])
   route_table_ids = local.all_vpc_route_table_ids
   policy          = <<POLICY
   {
