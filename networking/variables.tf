@@ -31,3 +31,9 @@ variable "destination_cidr_block" {
 variable "aws_region" {
     type = string
 }
+
+variable "name" {}
+
+variable "common_tags" {}
+
+variable "naming_prefix" {}
