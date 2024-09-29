@@ -1,16 +1,19 @@
 # --identity/main.tf--
 
-resource "aws_ecr_repository" "efs_ecr" {
-  name                 = var.name
+resource "aws_ecr_repository" "orion_ecr" {
+  name                 = "${var.name}-ecr"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
     scan_on_push = false
   }
+    tags = merge(var.common_tags, {
+    name = "${var.naming_prefix}-ecr"
+  })
 }
 
-resource "aws_ecr_lifecycle_policy" "efs_ecr_policy" {
-  repository = aws_ecr_repository.efs_ecr.name
+resource "aws_ecr_lifecycle_policy" "orion_ecr_policy" {
+  repository = aws_ecr_repository.orion_ecr.name
 
   policy = jsonencode({
     rules = [{

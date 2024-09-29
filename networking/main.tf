@@ -7,7 +7,7 @@ resource "aws_vpc" "orion-vpc" {
   enable_dns_support   = true
 
   tags = merge(var.common_tags, {
-    name = "${var.naming_prefix}-${var.name}"
+    name = "${var.naming_prefix}-${local.vpc_name}"
   })
   # create new VPC b4 destroying the old one
   # IGW gets updated to new VPC b4 old VPC is destroyed
@@ -108,7 +108,7 @@ resource "aws_internet_gateway" "orion-internet-gateway" {
 
 # security group for ALB
 resource "aws_security_group" "orion-sg-alb" {
-  name        = "orion-alb-sg"
+  name        = "${var.name}-alb-sg"
   vpc_id      = aws_vpc.orion-vpc.id
   description = "Security group for orion alb"
   ingress {

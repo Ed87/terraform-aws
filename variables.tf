@@ -18,12 +18,12 @@ variable "environment" {
 
 variable "naming_prefix" {
   type        = string
-  description = "Naming prefix for all resources."
+  description = "Naming prefix for all 'name' tags."
   default     = "labs"
 }
 
 variable "name" {
   type        = string
-  description = "Naming prefix of VPC tag."
-  default     = "labs"
+  description = "Naming prefix for all resources with name property."
+  default     = "orion"
 }

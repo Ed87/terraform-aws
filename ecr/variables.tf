@@ -1,8 +1,4 @@
 
-variable "name" {}
-
-# variable "image_tag_mutability" {}
-
 variable "description" {}
 
 variable "type" {}
@@ -15,4 +11,8 @@ variable "countNumber" {}
 
 variable "rulePriority" {}
 
-# variable "image_tag_mutability" {}
+variable "name" {}
+
+variable "common_tags" {}
+
+variable "naming_prefix" {}
