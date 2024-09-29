@@ -141,22 +141,12 @@ resource "aws_security_group" "orion-sg-alb" {
 }
 
 #aws_vpc_endpoint for S3
+# TODO: dynamically assign policies to endpoints via locals.tf
 resource "aws_vpc_endpoint" "orion-s3" {
   vpc_id          = aws_vpc.orion-vpc.id
-  service_name    = join(".", ["com.amazonaws", data.aws_region.current.name, "s3"])
+  for_each        = local.vpc_gateway_endpoints.service_name
+  service_name    = each.value
   route_table_ids = local.all_vpc_route_table_ids
-  policy          = <<POLICY
-  {
-  "Statement": [
-    {
-    "Action": "*",
-    "Effect": "Allow",
-    "Resource": "*",
-    "Principal": "*"
-    }
-  ]
-  }
-  POLICY
 
   tags = merge(var.common_tags, {
     name = "${var.naming_prefix}-vpce"
