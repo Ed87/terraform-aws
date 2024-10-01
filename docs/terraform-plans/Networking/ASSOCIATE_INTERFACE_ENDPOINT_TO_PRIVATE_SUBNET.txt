@@ -1,0 +1,109 @@
+module.networking.data.aws_region.current: Reading...
+module.networking.data.aws_availability_zones.available: Reading...
+module.ecr.aws_ecr_repository.orion_ecr: Refreshing state... [id=orion-ecr]
+module.networking.aws_vpc.orion-vpc: Refreshing state... [id=vpc-0aa3a74c4f72d48eb]
+module.networking.data.aws_region.current: Read complete after 0s [id=eu-north-1]
+module.networking.data.aws_availability_zones.available: Read complete after 0s [id=eu-north-1]
+module.networking.random_shuffle.az_list: Refreshing state... [id=-]
+module.ecr.aws_ecr_lifecycle_policy.orion_ecr_policy: Refreshing state... [id=orion-ecr]
+module.networking.aws_security_group.orion-sg-vpce: Refreshing state... [id=sg-053bebac0e766a208]
+module.networking.aws_internet_gateway.orion-internet-gateway: Refreshing state... [id=igw-08385d013159df71e]
+module.networking.aws_route_table.orion-public-rt: Refreshing state... [id=rtb-0e2ecbc94f4ae0784]
+module.networking.aws_subnet.orion-public-subnet[2]: Refreshing state... [id=subnet-0f8b375ad462a947a]
+module.networking.aws_subnet.orion-private-subnet[0]: Refreshing state... [id=subnet-0e194fea0459c2989]
+module.networking.aws_subnet.orion-public-subnet[0]: Refreshing state... [id=subnet-0ee6a6197e77aa256]
+module.networking.aws_subnet.orion-private-subnet[2]: Refreshing state... [id=subnet-09bb7a14876fc11c6]
+module.networking.aws_subnet.orion-private-subnet[1]: Refreshing state... [id=subnet-0d5215e6744e09608]
+module.networking.aws_subnet.orion-public-subnet[1]: Refreshing state... [id=subnet-00ef91ea54501376d]
+module.networking.aws_security_group.orion-sg-alb: Refreshing state... [id=sg-0b45a163d8d73d359]
+module.networking.aws_route_table.orion-private-rt[0]: Refreshing state... [id=rtb-0028b67b5c439eb44]
+module.networking.aws_route_table.orion-private-rt[1]: Refreshing state... [id=rtb-02f5d4c203e82c1c2]
+module.networking.aws_route_table.orion-private-rt[2]: Refreshing state... [id=rtb-030a4cb268197dc10]
+module.networking.aws_route.default-public-route: Refreshing state... [id=r-rtb-0e2ecbc94f4ae07841080289494]
+module.networking.aws_route_table_association.orion-public-assoc[0]: Refreshing state... [id=rtbassoc-0efd61ff6e61d0a6a]
+module.networking.aws_route_table_association.orion-public-assoc[2]: Refreshing state... [id=rtbassoc-0dc38362850a321d5]
+module.networking.aws_route_table_association.orion-public-assoc[1]: Refreshing state... [id=rtbassoc-08a7e47f560ad4e93]
+module.networking.aws_route_table_association.orion-private-assoc[0]: Refreshing state... [id=rtbassoc-0208f8bbd9d4b1791]
+module.networking.aws_route_table_association.orion-private-assoc[1]: Refreshing state... [id=rtbassoc-06c61e2f531d11b82]
+module.networking.aws_route_table_association.orion-private-assoc[2]: Refreshing state... [id=rtbassoc-0e405d42f0fa9b1e2]
+module.networking.aws_vpc_endpoint.orion-s3["dynamodb"]: Refreshing state... [id=vpce-0bd29309e7435eaf6]
+module.networking.aws_vpc_endpoint.orion-s3["s3"]: Refreshing state... [id=vpce-0c1e598b76c6c74ca]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # module.networking.aws_security_group.orion-sg-vpce will be updated in-place
+  ~ resource "aws_security_group" "orion-sg-vpce" {
+        id                     = "sg-053bebac0e766a208"
+      ~ ingress                = [
+          + {
+              + cidr_blocks      = []
+              + description      = "Allow Nodes to pull images from ECR via VPC endpoints"
+              + from_port        = 443
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 443
+            },
+        ]
+        name                   = "orion-vpce-sg"
+        tags                   = {
+            "Name"      = "orion-dev-vpce-sg"
+            "createdBy" = "Terraform"
+            "owner"     = "DevOps"
+        }
+        # (8 unchanged attributes hidden)
+    }
+
+  # module.networking.aws_vpc_endpoint.orion_ecr_dkr will be created
+  + resource "aws_vpc_endpoint" "orion_ecr_dkr" {
+      + arn                   = (known after apply)
+      + cidr_blocks           = (known after apply)
+      + dns_entry             = (known after apply)
+      + id                    = (known after apply)
+      + ip_address_type       = (known after apply)
+      + network_interface_ids = (known after apply)
+      + owner_id              = (known after apply)
+      + policy                = (known after apply)
+      + prefix_list_id        = (known after apply)
+      + private_dns_enabled   = true
+      + requester_managed     = (known after apply)
+      + route_table_ids       = (known after apply)
+      + security_group_ids    = [
+          + "sg-053bebac0e766a208",
+        ]
+      + service_name          = "com.amazonaws.eu-north-1.ecr.dkr"
+      + state                 = (known after apply)
+      + subnet_ids            = [
+          + "subnet-09bb7a14876fc11c6",
+          + "subnet-0d5215e6744e09608",
+          + "subnet-0e194fea0459c2989",
+        ]
+      + tags                  = {
+          + "Name"      = "orion-dev-vpce-ecr"
+          + "createdBy" = "Terraform"
+          + "owner"     = "DevOps"
+        }
+      + tags_all              = {
+          + "Name"      = "orion-dev-vpce-ecr"
+          + "createdBy" = "Terraform"
+          + "owner"     = "DevOps"
+        }
+      + vpc_endpoint_type     = "Interface"
+      + vpc_id                = "vpc-0aa3a74c4f72d48eb"
+
+      + dns_options (known after apply)
+    }
+
+Plan: 1 to add, 1 to change, 0 to destroy.
+
+─────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.

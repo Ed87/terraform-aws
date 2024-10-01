@@ -141,6 +141,23 @@ resource "aws_security_group" "orion-sg-alb" {
   })
 }
 
+# security group for VPCE
+resource "aws_security_group" "orion-sg-vpce" {
+  name        = "${var.name}-vpce-sg"
+  vpc_id      = aws_vpc.orion-vpc.id
+  description = "Security group for ECR/s3 VPC Endpoints"
+  ingress {
+    description = "Allow Nodes to pull images from ECR via VPC endpoints"
+    protocol    = "tcp"
+    from_port   = 443
+    to_port     = 443
+  }
+
+  tags = merge(var.common_tags, {
+    Name = "${var.naming_prefix}-vpce-sg"
+  })
+}
+
 #aws_vpc_endpoint for S3
 # TODO: dynamically assign policies to endpoints via locals.tf
 resource "aws_vpc_endpoint" "orion-s3" {
@@ -151,5 +168,21 @@ resource "aws_vpc_endpoint" "orion-s3" {
 
   tags = merge(var.common_tags, {
     Name = "${var.naming_prefix}-vpce"
+  })
+}
+
+# aws_vpc_endpoint for ecr.dkr
+# Docker client commands such as push and pull use this endpoint
+resource "aws_vpc_endpoint" "orion_ecr_dkr" {
+  vpc_id              = aws_vpc.orion-vpc.id
+  service_name        = "com.amazonaws.${data.aws_region.current.name}.ecr.dkr"
+  vpc_endpoint_type   = "Interface"
+  private_dns_enabled = true
+
+  security_group_ids = [aws_security_group.orion-sg-vpce.id]
+  subnet_ids         = local.all_vpc_private_subnet_ids
+
+  tags = merge(var.common_tags, {
+    Name = "${var.naming_prefix}-vpce-ecr"
   })
 }

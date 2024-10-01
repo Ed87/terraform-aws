@@ -7,7 +7,7 @@ resource "aws_ecr_repository" "orion_ecr" {
   image_scanning_configuration {
     scan_on_push = false
   }
-    tags = merge(var.common_tags, {
+  tags = merge(var.common_tags, {
     name = "${var.naming_prefix}-ecr"
   })
 }
@@ -19,11 +19,11 @@ resource "aws_ecr_lifecycle_policy" "orion_ecr_policy" {
     rules = [{
       rulePriority = var.rulePriority
       description  = var.description
-      action       = {
+      action = {
         type = var.type
       }
-      selection     = {
-        tagStatus   =   var.tagStatus
+      selection = {
+        tagStatus   = var.tagStatus
         countType   = var.countType
         countNumber = var.countNumber
       }
