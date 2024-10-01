@@ -170,19 +170,3 @@ resource "aws_vpc_endpoint" "orion-s3" {
     Name = "${var.naming_prefix}-vpce"
   })
 }
-
-# aws_vpc_endpoint for ecr.dkr
-# Docker client commands such as push and pull use this endpoint
-resource "aws_vpc_endpoint" "orion_ecr_dkr" {
-  vpc_id              = aws_vpc.orion-vpc.id
-  service_name        = "com.amazonaws.${data.aws_region.current.name}.ecr.dkr"
-  vpc_endpoint_type   = "Interface"
-  private_dns_enabled = true
-
-  security_group_ids = [aws_security_group.orion-sg-vpce.id]
-  subnet_ids         = local.all_vpc_private_subnet_ids
-
-  tags = merge(var.common_tags, {
-    Name = "${var.naming_prefix}-vpce-ecr"
-  })
-}

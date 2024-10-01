@@ -30,4 +30,8 @@ module "ecr" {
   naming_prefix = local.naming_prefix
 }
 
-
+module "s3" {
+  source        = "./storage"
+  common_tags   = local.common_tags
+  naming_prefix = local.naming_prefix
+}
