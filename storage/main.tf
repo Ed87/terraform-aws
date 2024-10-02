@@ -9,6 +9,28 @@ resource "aws_s3_bucket" "state_backend_bucket" {
   })
 }
 
+resource "aws_s3_bucket_policy" "grant_iam_user_access" {
+  bucket = aws_s3_bucket.state_backend_bucket.id
+  policy = data.aws_iam_policy_document.iam_user_tfstate_bucket_access.json
+}
+
+data "aws_iam_policy_document" "iam_user_tfstate_bucket_access" {
+  statement {
+    principals {
+      type        = "AWS"
+      identifiers = ["${var.iam_user}"]
+    }
+
+    actions = [
+      "s3:*"
+    ]
+
+    resources = [
+      aws_s3_bucket.state_backend_bucket.arn
+    ]
+  }
+}
+
 # enable S3 bucket versioning
 resource "aws_s3_bucket_versioning" "state_backend_bucket_versioning" {
   bucket = aws_s3_bucket.state_backend_bucket.id
@@ -25,3 +47,4 @@ resource "random_string" "random" {
   upper            = false
   override_special = "/@£$"
 }
+

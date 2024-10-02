@@ -34,4 +34,11 @@ module "s3" {
   source        = "./storage"
   common_tags   = local.common_tags
   naming_prefix = local.naming_prefix
+  iam_user      = module.iam.s3_aws_iam_user_id
+}
+
+module "iam" {
+  source        = "./iam"
+  common_tags   = local.common_tags
+  naming_prefix = local.naming_prefix
 }
