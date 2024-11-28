@@ -4,8 +4,8 @@ locals {
   vpc_name                   = "VPC-A"
   vpc_gateway_endpoints = {
     service_name = {
-      s3       = join(".", ["com.amazonaws", data.aws_region.current.name, "s3"]),
-      dynamodb = join(".", ["com.amazonaws", data.aws_region.current.name, "dynamodb"])
+      s3       = join(".", ["com.amazonaws", var.aws_region, "s3"]),
+      dynamodb = join(".", ["com.amazonaws", var.aws_region, "dynamodb"])
     }
   }
 }

@@ -1,7 +1,6 @@
 variable "aws_region" {
   type        = string
   description = "AWS region to use for resources."
-  default     = "us-east-1"
 }
 
 variable "company" {
@@ -25,5 +24,9 @@ variable "naming_prefix" {
 variable "name" {
   type        = string
   description = "Naming prefix for all resources with name property."
-  default     = "orion"
+}
+
+variable "vpc_cidr" {
+  type        = string
+  description = "VPC subnet to provision resources in."
 }

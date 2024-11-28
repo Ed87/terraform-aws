@@ -1,8 +1,11 @@
-#--- storage/main.tf ---
+#--modules/storage/main.tf---
 
 # create state backend bucket
 resource "aws_s3_bucket" "state_backend_bucket" {
   bucket = "tfstate-bucket-${random_string.random.result}"
+  lifecycle {
+    prevent_destroy = true
+  }
 
   tags = merge(var.common_tags, {
     Name = "${var.naming_prefix}-tfstate-bucket"

@@ -16,10 +16,11 @@ resource "aws_vpc" "orion-vpc" {
   }
 }
 
-data "aws_availability_zones" "available" {
+provider "aws" {
+  region = var.aws_region
 }
 
-data "aws_region" "current" {}
+data "aws_availability_zones" "available" {}
 
 resource "random_shuffle" "az_list" {
   input        = data.aws_availability_zones.available.names

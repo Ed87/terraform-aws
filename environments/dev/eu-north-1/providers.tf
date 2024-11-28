@@ -1,3 +1,5 @@
+#--environments/dev/eu-north-1/providers.tf---
+
 terraform {
   required_providers {
     aws = {
