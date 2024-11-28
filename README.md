@@ -15,33 +15,6 @@
 [![MIT License][license-shield]][license-url]
 
 
-
-
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
-  <h3 align="center">From Terraform to Terragrunt</h3>
-
-  <p align="center">
-    An awesome README template to jumpstart your projects!
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
-  </p>
-</div>
-
-
-
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -68,8 +41,6 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
@@ -79,14 +50,9 @@ This project is a reference implementation of migrating from a vanilla Terraform
 
 The following aspects are included:
 * Clean Code
-* Unit Tests
 * Static Application Security Testing
 * Semantic Versioning
-* Git
-* Secrets Management
-* Configuration-as-Code
-* Infrastructure-as-Code
-* Release Management
+
 
 
 Use the `BLANK_README.md` to get started.
@@ -244,7 +210,7 @@ move the files:
 /.terraform
 ```
 
-## Level Four Changes: Multi-Environment setup
+## Level Four Changes: Multi-Environment/Multi-Region setup
 1. Delete the existing remote state S3 bucket in AWS console
 2. Delete backend.tf from each region directory e.g for eu-north-1
 from:
@@ -282,6 +248,21 @@ terraform {
       encrypt = true
     }
   }
+ ```
+ 6.For regions not belonging to default profile add a provider block, e.g for eu-central-1:
+ ```sh
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = "eu-central-1"
+}
  ```
 
 <!-- USAGE EXAMPLES -->
@@ -336,8 +317,6 @@ Don't forget to give the project a star! Thanks again!
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- CONTACT -->
 ## Contact

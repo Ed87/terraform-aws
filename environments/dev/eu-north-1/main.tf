@@ -12,3 +12,4 @@ module "iam" {
   common_tags   = local.common_tags
   naming_prefix = local.naming_prefix
 }
+
